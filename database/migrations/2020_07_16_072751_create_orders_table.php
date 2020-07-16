@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('status')->default('Queued');
             $table->unsignedMediumInteger('progress')->default(0);
             $table->foreignId('customer_id');
-            $table->foreignId('worker_id');
+            $table->foreignId('worker_id')->nullable();
             $table->string('product_name');
             $table->unsignedMediumInteger('price_each');
             $table->unsignedMediumInteger('amount');
