@@ -15,17 +15,20 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('timestamp');
+            $table->timestamps();
             $table->boolean('priority');
             $table->string('status')->default('Queued');
             $table->unsignedMediumInteger('progress')->default(0);
-            $table->foreignId('customer_id');
-            $table->foreignId('worker_id')->nullable();
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->unsignedBigInteger('worker_id')->nullable();
+            $table->foreign('worker_id')->references('id')->on('employees');
             $table->string('product_name');
             $table->unsignedMediumInteger('price_each');
             $table->unsignedMediumInteger('amount');
             $table->unsignedTinyInteger('discount')->nullable();
-            $table->foreignId('storage_id');
+            $table->unsignedBiginteger('storage_id');
+            $table->foreign('storage_id')->references('id')->on('storages');
         });
     }
 

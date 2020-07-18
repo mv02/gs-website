@@ -52,7 +52,8 @@ class DbViewController extends Controller
         $orders = Order::select()->get();
         $keys = [
             'id',
-            'timestamp',
+            'created_at',
+            'updated_at',
             'priority',
             'status',
             'progress',
