@@ -21,20 +21,16 @@ class EnsureRowExists
     {
         switch ($model) {
             case 'employee':
-                $employee = Employee::where('discord_id', $request->employee_identifier)
-                                    ->orWhere('tycoon_id', $request->employee_identifier)
-                                    ->orWhere('id', $request->employee_identifier)->first();
+                $employee = Employee::where('discord_id', $request->discord_id)->first();
                 
                 if (! $employee)
-                    return response("Employee with identifier {$request->employee_identifier} does not exist.");
+                    return response("Employee with Discord ID {$request->discord_id} does not exist.");
             break;
             case 'customer':
-                $customer = Customer::where('discord_id', $request->customer_identifier)
-                                    ->orWhere('tycoon_id', $request->customer_identifier)
-                                    ->orWhere('id', $request->customer_identifier)->first();
+                $customer = Customer::where('discord_id', $request->discord_id)->first();
 
                 if (! $customer)
-                    return response("Customer with identifier {$request->customer_identifier} does not exist.");
+                    return response("Customer with Discord ID {$request->discord_id} does not exist.");
             break;
             case 'order':
                 $order = Order::where('id', $request->order_id)->first();
