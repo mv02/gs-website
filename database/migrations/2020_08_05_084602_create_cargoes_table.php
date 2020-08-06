@@ -16,6 +16,7 @@ class CreateCargoesTable extends Migration
         Schema::create('cargoes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
             $table->unsignedMediumInteger('price');
             $table->unsignedMediumInteger('limit');
         });
