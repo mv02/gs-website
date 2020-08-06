@@ -57,3 +57,5 @@ Route::prefix('orders')->group(function() {
 Route::prefix('storages')->group(function() {
     Route::get('', 'StoragesController@all');
 });
+
+Route::get('prices', 'CargoesController@all');
