@@ -26,7 +26,10 @@ Route::prefix('customers')->group(function() {
 });
 
 Route::prefix('orders')->group(function() {
-    Route::get('', 'DbViewController@orders');
+    Route::get('', 'OrdersController@all');
+    Route::get('queued', 'OrdersController@queued');
+    Route::get('pending', 'OrdersController@pending');
+    Route::get('completed', 'OrdersController@completed');
     Route::post('new', 'OrdersController@new')->middleware('exists:customer', 'valid:amount', 'exists:storage');
 
     Route::group(['prefix' => '{order_id}', 'middleware' => 'exists:order'], function() {
@@ -35,12 +38,7 @@ Route::prefix('orders')->group(function() {
         Route::patch('progress', 'OrdersController@progress')->middleware('valid:progress');
         Route::patch('collection', 'OrdersController@collection');
         Route::patch('complete', 'OrdersController@complete');
-        Route::prefix('edit')->group(function() {
-            Route::patch('priority', 'OrdersController@editPriority');
-            Route::patch('amount', 'OrdersController@editAmount')->middleware('valid:amount');
-            Route::patch('discount', 'OrdersController@editDiscount');
-            Route::patch('storage', 'OrdersController@editStorage')->middleware('exists:storage');
-        });
+        Route::patch('edit', 'OrdersController@edit')->middleware('valid:amount', 'exists:storage');
         Route::patch('cancel', 'OrdersController@cancel');
     });
 });
