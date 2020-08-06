@@ -22,7 +22,9 @@ Route::prefix('employees')->group(function() {
 });
 
 Route::prefix('customers')->group(function() {
-    Route::get('', 'DbViewController@customers');
+    Route::get('', 'CustomersController@all');
+    Route::post('new', 'CustomersController@new');
+    Route::get('{discord_id}', 'CustomersController@get');
 });
 
 Route::prefix('orders')->group(function() {
@@ -44,5 +46,5 @@ Route::prefix('orders')->group(function() {
 });
 
 Route::prefix('storages')->group(function() {
-    Route::get('', 'DbViewController@storages');
+    Route::get('', 'StoragesController@all');
 });
