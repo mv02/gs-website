@@ -18,7 +18,16 @@ Route::get('/', function () {
 });
 
 Route::prefix('employees')->group(function() {
-    Route::get('', 'DbViewController@employees');
+    Route::get('', 'EmployeesController@all');
+    Route::post('new', 'EmployeesController@new');
+    Route::group(['prefix' => '{discord_id}', 'middleware' => 'exists:employee'], function() {
+        Route::get('', 'EmployeesController@get');
+        Route::patch('promote', 'EmployeesController@promote');
+        Route::patch('trainee', 'EmployeesController@trainee');
+        Route::patch('status', 'EmployeesController@status');
+        Route::patch('trailer', 'EmployeesController@trailer');
+        Route::patch('faction', 'EmployeesController@faction');
+    });
 });
 
 Route::prefix('customers')->group(function() {
