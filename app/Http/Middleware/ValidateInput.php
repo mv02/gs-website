@@ -26,8 +26,10 @@ class ValidateInput
                     return response('Invalid input (progress cannot exceed the ordered amount).');
             break;
             case 'amount':
-                if ($request->amount < 0)   // To do: check crossing the order limit
-                    return response('Invalid input (amount cannot be a negative number).');
+                if (isset($request->amount)) {
+                    if ($request->amount < 0)   // To do: check crossing the order limit
+                        return response('Invalid input (amount cannot be a negative number).');
+                }
             break;
             default:
                 return response('[ValidateInput] Middleware check failure');

@@ -43,10 +43,12 @@ class EnsureRowExists
                     return response("Order GS-{$request->order_id} does not exist.");
             break;
             case 'storage':
-                $storage = Storage::where('id', $request->storage_id)->first();
+                if (isset($request->storage_id)) {
+                    $storage = Storage::where('id', $request->storage_id)->first();
 
-                if (! $storage)
-                    return response("Storage with ID {$request->storage_id} does not exist.");
+                    if (! $storage)
+                        return response("Storage with ID {$request->storage_id} does not exist.");
+                }
             break;
             default:
                 return response('[EnsureRowExists] Middleware check failure');
