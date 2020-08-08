@@ -13,8 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'ApiTestController@show');
+Route::prefix('purge')->group(function() {
+    Route::get('employees', 'ApiTestController@purgeEmployees');
+    Route::get('customers', 'ApiTestController@purgeCustomers');
+    Route::get('orders', 'ApiTestController@purgeOrders');
+    Route::get('storages', 'ApiTestController@purgeStorages');
+    Route::get('cargoes', 'ApiTestController@purgeCargoes');
 });
 
 Route::prefix('employees')->group(function() {
