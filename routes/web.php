@@ -69,6 +69,10 @@ Route::prefix('orders')->group(function() {
 
 Route::prefix('storages')->group(function() {
     Route::get('', 'StoragesController@all');
+    Route::get('{identifier}', 'StoragesController@get');
 });
 
-Route::get('prices', 'CargoesController@all');
+Route::prefix('prices')->group(function() {
+    Route::get('', 'CargoesController@all');
+    Route::get('{identifier}', 'CargoesController@get');
+});
