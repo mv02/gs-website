@@ -36,9 +36,7 @@ class OrdersController extends Controller
 
     public function new(Request $request)
     {
-        $customer = Customer::where('discord_id', $request->customer_identifier)
-                            ->orWhere('tycoon_id', $request->customer_identifier)
-                            ->first();
+        $customer = Customer::where('discord_id', $request->discord_id)->first();
         $data = $request->all();
         unset($data['customer_identifier']);
         $data['customer_id'] = $customer->id;
@@ -50,9 +48,7 @@ class OrdersController extends Controller
 
     public function assign(Request $request)
     {
-        $worker = Employee::where('discord_id', $request->employee_identifier)
-                          ->orWhere('tycoon_id', $request->employee_identifier)
-                          ->first();
+        $worker = Employee::where('discord_id', $request->discord_id)->first();
         $order = Order::find($request->order_id);
         $order->worker_id = $worker->id;
         $order->status = 'In progress';
