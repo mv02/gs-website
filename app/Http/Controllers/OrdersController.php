@@ -57,6 +57,18 @@ class OrdersController extends Controller
         return $success ? $order : null;
     }
 
+    // temporary, only for testing purposes
+    public function unassign(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        $order->status = 'Queued';
+        $order->progress = 0;
+        $order->worker_id = null;
+        $success = $order->save();
+
+        return $success ? $order : null;
+    }
+
     public function progress(Request $request)
     {
         $order = Order::find($request->order_id);

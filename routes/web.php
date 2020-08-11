@@ -58,6 +58,7 @@ Route::prefix('orders')->group(function() {
     Route::group(['prefix' => '{order_id}', 'middleware' => 'exists:order'], function() {
         Route::get('', 'OrdersController@get');
         Route::patch('assign', 'OrdersController@assign')->middleware('exists:employee');
+        Route::patch('unassign', 'OrdersController@unassign');
         Route::patch('progress', 'OrdersController@progress')->middleware('valid:progress');
         Route::patch('collection', 'OrdersController@collection');
         Route::patch('complete', 'OrdersController@complete');
