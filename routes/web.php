@@ -21,6 +21,13 @@ Route::prefix('purge')->group(function() {
     Route::get('storages', 'ApiTestController@purgeStorages');
     Route::get('cargoes', 'ApiTestController@purgeCargoes');
 });
+Route::prefix('delete')->group(function() {
+    Route::get('employee/{id}', 'ApiTestController@deleteEmployee');
+    Route::get('customer/{id}', 'ApiTestController@deleteCustomer');
+    Route::get('order/{id}', 'ApiTestController@deleteOrder');
+    Route::get('storage/{id}', 'ApiTestController@deleteStorage');
+    Route::get('cargo/{id}', 'ApiTestController@deleteCargo');
+});
 
 Route::prefix('employees')->group(function() {
     Route::get('', 'EmployeesController@all');

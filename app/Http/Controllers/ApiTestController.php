@@ -47,4 +47,30 @@ class ApiTestController extends Controller
         Cargo::truncate();
         return redirect('/');
     }
+
+    public function deleteEmployee(Request $request)
+    {
+        Employee::find($request->id)->delete();
+        return redirect('/');
+    }
+    public function deleteCustomer(Request $request)
+    {
+        Customer::find($request->id)->delete();
+        return redirect('/');
+    }
+    public function deleteOrder(Request $request)
+    {
+        Order::find($request->id)->delete();
+        return redirect('/');
+    }
+    public function deleteStorage(Request $request)
+    {
+        Storage::find($request->id)->delete();
+        return redirect('/');
+    }
+    public function deleteCargo(Request $request)
+    {
+        Cargo::find($request->id)->delete();
+        return redirect('/');
+    }
 }
