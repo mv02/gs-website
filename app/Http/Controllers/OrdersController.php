@@ -24,6 +24,16 @@ class OrdersController extends Controller
         return Order::where('status', 'In progress')->orWhere('status', 'Pending collection')->get();
     }
 
+    public function inProgress()
+    {
+        return Order::where('status', 'In progress')->get();
+    }
+
+    public function pendingCollection()
+    {
+        return Order::where('status', 'Pending collection')->get();
+    }
+
     public function completed()
     {
         return Order::where('status', 'Completed')->get();

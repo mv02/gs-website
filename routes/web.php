@@ -52,6 +52,8 @@ Route::prefix('orders')->group(function() {
     Route::get('', 'OrdersController@all');
     Route::get('queued', 'OrdersController@queued');
     Route::get('pending', 'OrdersController@pending');
+    Route::get('in-progress', 'OrdersController@inProgress');
+    Route::get('pending-collection', 'OrdersController@pendingCollection');
     Route::get('completed', 'OrdersController@completed');
     Route::post('new', 'OrdersController@new')->middleware('exists:customer', 'valid:amount', 'exists:storage');
 
