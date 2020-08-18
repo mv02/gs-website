@@ -13,7 +13,7 @@ class ApiTestController extends Controller
 {
     public function show()
     {
-        return view('home', [
+        return view('db', [
             'employees' => Employee::all(),
             'customers' => Customer::all(),
             'orders' => Order::all(),

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'ApiTestController@show');
+Route::get('db', 'ApiTestController@show');
 Route::prefix('purge')->group(function() {
     Route::get('employees', 'ApiTestController@purgeEmployees');
     Route::get('customers', 'ApiTestController@purgeCustomers');
