@@ -48,7 +48,7 @@ class OrdersController extends Controller
     {
         $customer = Customer::where('discord_id', $request->discord_id)->first();
         $data = $request->all();
-        unset($data['customer_identifier']);
+        unset($data['discord_id']);
         $data['customer_id'] = $customer->id;
         $order = new Order($data);
         $success = $order->save();
