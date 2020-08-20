@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('db', 'ApiTestController@show');
+Route::get('', 'HomeController@show');
 Route::prefix('purge')->group(function() {
     Route::get('employees', 'ApiTestController@purgeEmployees');
     Route::get('customers', 'ApiTestController@purgeCustomers');
