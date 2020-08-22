@@ -15,10 +15,10 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('discord_name');
+            $table->string('name');
             $table->unsignedBigInteger('discord_id');
-            $table->string('tycoon_name');
-            $table->unsignedMediumInteger('tycoon_id');
+            $table->string('tycoon_name')->nullable();
+            $table->unsignedMediumInteger('tycoon_id')->nullable();
         });
     }
 
