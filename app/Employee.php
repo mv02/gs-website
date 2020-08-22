@@ -14,7 +14,6 @@ class Employee extends Model
         'rank',
         'joined_at',
         'trailer',
-        'faction',
-        'email'
+        'faction'
     ];
 }

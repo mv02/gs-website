@@ -8,7 +8,7 @@ class Customer extends Model
 {
     public $timestamps = false;
     public $fillable = [
-        'discord_name',
+        'name',
         'discord_id',
         'tycoon_name',
         'tycoon_id'
