@@ -37,7 +37,7 @@ class Order extends Model
 
     function getTotalPriceAttribute() {
         $totalPrice = $this->amount * ($this->price_each + $this->storage->fee);
-        if ($this->priority) $totalPrice *= 1.15;
+        if ($this->priority) $totalPrice *= 1.25;
         if ($this->discount) $totalPrice -= $totalPrice * $this->discount / 100;
         return $totalPrice;
     }
