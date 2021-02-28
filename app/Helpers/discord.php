@@ -78,8 +78,6 @@ if (!function_exists('orderAssigned')) {
         ])->post('https://discord.com/api/channels/' . $orderChannelID . '/messages', [
             'embed' => $order->embed
         ]);
-
-        orderLog($orderID, 'Grinder assigned.');
     }
 }
 
