@@ -40,7 +40,7 @@
             "database/seeds",
             "database/factories"
         ],
-        "files": ["app/Helpers/discord.php", "app/Helpers/orders.php"]
+        "files": ["app/Helpers/discord.php", "app/Helpers/orders.php", "app/Helpers/users.php"]
     },
     "autoload-dev": {
         "psr-4": {
