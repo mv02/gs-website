@@ -17,4 +17,12 @@ class User extends Model
         'active',
         'joined_at'
     ];
+
+    function customerOrders() {
+        return $this->hasMany('App\Order', 'customer_id');
+    }
+
+    function grinderOrders() {
+        return $this->hasMany('App\Order', 'grinder_id');
+    }
 }
