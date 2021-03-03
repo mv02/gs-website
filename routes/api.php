@@ -17,3 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::prefix('/users')->group(function() {
+        Route::get('', 'UserController@getUsers');
+        Route::post('', 'UserController@addUser');
+        Route::prefix('/employees')->group(function() {
+            Route::get('', 'UserController@getAllEmployees');
+            Route::get('/active', 'UserController@getActiveEmployees');
+            Route::get('/inactive', 'UserController@getInactiveEmployees');
+        });
+        Route::prefix('/{user_identifier}')->group(function() {
+            Route::get('', 'UserController@getUsers');
+            Route::get('/hire', 'UserController@hireUser');
+            Route::get('/fire', 'UserController@fireUser');
+            Route::get('/promote', 'UserController@promoteUser');
+            Route::get('/demote', 'UserController@demoteUser');
+        });
+    });
+});
