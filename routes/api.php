@@ -53,3 +53,13 @@ Route::prefix('/orders')->middleware('auth:sanctum')->group(function() {
         Route::patch('/reset', 'OrderController@resetOrder');
     });
 });
+
+Route::prefix('/cargoes')->middleware('auth:sanctum')->group(function() {
+    Route::get('', 'CargoController@getCargoes');
+    Route::post('', 'CargoController@addCargo');
+    Route::prefix('/{cargo_identifier}')->group(function() {
+        Route::get('', 'CargoController@getCargoes');
+        Route::patch('/edit', 'CargoController@editCargo');
+        Route::delete('', 'CargoController@deleteCargo');
+    });
+});
