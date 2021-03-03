@@ -63,3 +63,8 @@ Route::prefix('/cargoes')->middleware('auth:sanctum')->group(function() {
         Route::delete('', 'CargoController@deleteCargo');
     });
 });
+
+Route::prefix('/storages')->middleware('auth:sanctum')->group(function() {
+    Route::get('', 'StorageController@getStorages');
+    Route::get('{storage_identifier}', 'StorageController@getStorages');
+});
