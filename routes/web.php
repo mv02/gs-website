@@ -17,3 +17,7 @@ Route::get('', 'HomeController@show');
 Route::get('/login', 'LoginController@redirect')->name('login');
 Route::get('/login/callback', 'LoginController@callback');
 Route::get('/logout', 'LoginController@logout')->name('logout');
+
+Route::group(['prefix' => '/profile', 'middleware' => 'auth'], function() {
+    Route::get('', 'ProfileController@showProfile');
+});

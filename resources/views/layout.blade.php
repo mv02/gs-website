@@ -24,17 +24,41 @@
                 <a href="/rules" class="nav-link mx-lg-2 {{ Request::path() == 'rules' ? 'active' : '' }}">Rules</a>
                 <a href="https://discord.gg/wG9kVdw" class="nav-link mx-lg-2">Discord</a>
                 <hr>
-                <a href="/login" class="nav-link d-lg-none">
+                <a href="@if (Auth::check())
+                    @if (Request::is('profile/*'))
+                        /logout
+                    @else
+                        /profile
+                    @endif
+                @else
+                    /login
+                @endif" class="nav-link d-lg-none">
                     <svg width="1em" height="1em"  viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
                         <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
                     </svg>
-                    Login with Discord
+                    @if (Auth::check())
+                        @if (Request::is('profile*'))
+                            Logout
+                        @else
+                            Profile: <b>{{ Auth::user()-> name }}</b>
+                        @endif
+                    @else
+                        Login with Discord
+                    @endif
                 </a>
             </div>
         </div>
-        <a href="/login" class="btn btn-light d-none d-lg-inline-block">Login with Discord</a>
+        @if (Auth::check())
+            @if (Request::is('profile*'))
+                <a href="/logout" class="btn btn-danger d-none d-lg-inline-block">Logout</a>
+            @else
+                <a href="/profile" class="btn btn-success d-none d-lg-inline-block">Profile: <b>{{ Auth::user()->name }}</b></a>
+            @endif
+        @else
+            <a href="/login" class="btn btn-light d-none d-lg-inline-block">Login with Discord</a>
+        @endif
     </nav>
 
     @yield('content')
