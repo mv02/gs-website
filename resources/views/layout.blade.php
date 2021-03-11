@@ -25,7 +25,7 @@
                 <a href="https://discord.gg/wG9kVdw" class="nav-link mx-lg-2">Discord</a>
                 <hr>
                 <a href="@if (Auth::check())
-                    @if (Request::is('profile/*'))
+                    @if (Request::is('profile*'))
                         /logout
                     @else
                         /profile
