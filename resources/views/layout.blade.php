@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <title>Grinding Satisfaction</title>
 </head>
