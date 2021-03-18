@@ -22,6 +22,16 @@ class Order extends Model
         'completed_at',
         'delivered_at'
     ];
+    public $appends = [
+        'amount_formatted',
+        'price_each_dollars',
+        'total_price',
+        'total_price_dollars',
+        'discount_string',
+        'status_with_emoji',
+        'progress_formatted',
+        'progress_percentage',
+    ];
 
     function customer() {
         return $this->belongsTo('App\User', 'customer_id');
@@ -42,23 +52,51 @@ class Order extends Model
         return $totalPrice;
     }
 
-    function getAmountStringAttribute() {
+    function getAmountFormattedAttribute() {
         return number_format($this->amount, 0, '.', ',');
     }
 
-    function getPriceEachStringAttribute() {
-        return '$' . number_format($this->price_each, 0, '.', ',');
+    function getPriceEachFormattedAttribute() {
+        return number_format($this->price_each, 0, '.', ',');
     }
 
-    function getTotalPriceStringAttribute() {
-        return '$' . number_format($this->total_price, 0, '.', ',');
+    function getPriceEachDollarsAttribute() {
+        return '$' . $this->price_each_formatted;
+    }
+
+    function getTotalPriceFormattedAttribute() {
+        return number_format($this->total_price, 0, '.', ',');
+    }
+
+    function getTotalPriceDollarsAttribute() {
+        return '$' . $this->total_price_formatted;
     }
 
     function getDiscountStringAttribute() {
+        if (!$this->discount) return '';
         return "-{$this->discount}%";
     }
 
-    function getProgressStringAttribute() {
+    function getStatusWithEmojiAttribute() {
+        switch ($this->status) {
+            case 'Queued':
+                $emoji = '📍';
+                break;
+            case 'In Progress':
+                $emoji = '🕑';
+                break;
+            case 'Cancelled':
+                $emoji = '⛔';
+                break;
+            default:
+                $emoji = '✅';
+                break;
+        }
+
+        return $emoji . ' ' . $this->status;
+    }
+
+    function getProgressFormattedAttribute() {
         return number_format($this->progress, 0, '.', ',');
     }
 
@@ -66,13 +104,17 @@ class Order extends Model
         return floor($this->progress / $this->amount * 100);
     }
 
+    function getProgressFullStringAttribute() {
+        return $this->progress_formatted . ' (' . $this->progress_percentage . ' %)';
+    }
+
     function getEmbedAttribute() {
         $title = '\🚛 Order ' . $this->id;
         if ($this->status == 'Completed') $color = 5025616;
         else $color = $this->priority ? 16750592 : 240116;
         $fields = [
-            ['name' => 'Order Information', 'value' =>  "**{$this->amount_string}x** {$this->product_name} @ {$this->storage->name}"],
-            ['name' => 'Total Price', 'value' => "{$this->total_price_string} ({$this->discount_string})"],
+            ['name' => 'Order Information', 'value' =>  "**{$this->amount_formatted}x** {$this->product_name} @ {$this->storage->name}"],
+            ['name' => 'Total Price', 'value' => "{$this->total_price_dollars} ({$this->discount_string})"],
             ['name' => 'Customer', 'value' => "**{$this->customer->name}** ({$this->customer->tycoon_id}) <@{$this->customer->discord_id}>"]
         ];
 
@@ -87,7 +129,7 @@ class Order extends Model
                 $description = "\🕑 **In Progress** - <@{$this->grinder->discord_id}>";
                 $timestamp = $this->created_at;
                 $footer = ['text' => 'Placed at:'];
-                array_unshift($fields, ['name' => 'Progress', 'value' => "{$this->progress_string} / {$this->amount_string} ({$this->progress_percentage}%)"]);
+                array_unshift($fields, ['name' => 'Progress', 'value' => "{$this->progress_formatted} / {$this->amount_formatted} ({$this->progress_percentage}%)"]);
                 break;
 
             case 'Completed':
